@@ -713,13 +713,13 @@ function Navbar() {
     <>
       <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        padding: "1.25rem 5vw",
+        padding: "1rem 5vw",
         display: "flex", alignItems: "center", justifyContent: "space-between",
         transition: "background 0.3s, border-color 0.3s",
-        background: scrolled ? "rgba(4,9,31,0.92)" : "transparent",
-        backdropFilter: scrolled ? "blur(18px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(18px)" : "none",
-        borderBottom: scrolled ? "1px solid rgba(52,191,255,0.12)" : "1px solid transparent",
+        background: scrolled || menuOpen ? "rgba(4,9,31,0.96)" : "transparent",
+        backdropFilter: scrolled || menuOpen ? "blur(18px)" : "none",
+        WebkitBackdropFilter: scrolled || menuOpen ? "blur(18px)" : "none",
+        borderBottom: scrolled || menuOpen ? "1px solid rgba(52,191,255,0.12)" : "1px solid transparent",
       }}>
         <a href="#" style={{
           fontFamily: "'Electrolize', sans-serif",
@@ -730,7 +730,8 @@ function Navbar() {
           letterSpacing: "0.05em",
         }}>AP</a>
 
-        <div style={{ display: "flex", gap: "2.5rem" }}>
+        {/* Desktop Navigation */}
+        <div className="nav-links-desktop" style={{ display: "flex", gap: "2.5rem" }}>
           {links.map(l => (
             <a key={l.label} href={l.href} style={{
               fontFamily: "'Poppins', sans-serif",
@@ -747,10 +748,86 @@ function Navbar() {
           ))}
         </div>
 
-        <a href="mailto:atharvpalekar07@gmail.com" className="btn-primary" style={{ padding: "0.5rem 1.4rem", fontSize: "0.78rem" }}>
-          Hire Me
-        </a>
+        {/* Desktop Hire Me CTA */}
+        <div className="nav-hire-btn">
+          <a href="mailto:atharvpalekar07@gmail.com" className="btn-primary" style={{ padding: "0.5rem 1.4rem", fontSize: "0.78rem" }}>
+            Hire Me
+          </a>
+        </div>
+
+        {/* Mobile Hamburger Toggle */}
+        <button
+          className="nav-hamburger"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          style={{
+            background: "transparent",
+            border: "1px solid rgba(52,191,255,0.2)",
+            color: "#F5EFE6",
+            fontSize: "1.2rem",
+            padding: "0.3rem 0.6rem",
+            borderRadius: 4,
+            cursor: "pointer",
+            display: "none",
+          }}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
       </nav>
+
+      {/* Mobile Menu Drawer */}
+      {menuOpen && (
+        <div style={{
+          position: "fixed",
+          top: "3.75rem",
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "rgba(4,9,31,0.98)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          zIndex: 99,
+          display: "flex",
+          flexDirection: "column",
+          padding: "2rem 6vw",
+          gap: "1.5rem",
+          borderTop: "1px solid rgba(52,191,255,0.12)",
+        }}>
+          {links.map(l => (
+            <a
+              key={l.label}
+              href={l.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: "1.15rem",
+                fontWeight: 500,
+                color: "#F5EFE6",
+                textDecoration: "none",
+                letterSpacing: "0.02em",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                paddingBottom: "0.75rem",
+              }}
+            >
+              {l.label}
+            </a>
+          ))}
+
+          <a
+            href="mailto:atharvpalekar07@gmail.com"
+            onClick={() => setMenuOpen(false)}
+            className="btn-primary"
+            style={{
+              padding: "0.75rem 1.5rem",
+              fontSize: "0.85rem",
+              textAlign: "center",
+              marginTop: "0.75rem",
+            }}
+          >
+            Hire Me
+          </a>
+        </div>
+      )}
     </>
   )
 }
@@ -761,7 +838,7 @@ function HeroSection() {
   const role = useTypewriter(TYPED_ROLES)
 
   return (
-    <section style={{
+    <section className="hero-section" style={{
       minHeight: "100vh",
       display: "flex",
       alignItems: "center",
@@ -777,7 +854,7 @@ function HeroSection() {
         zIndex: -1,
       }} />
 
-      <div style={{ maxWidth: 700 }}>
+      <div style={{ maxWidth: 700, width: "100%" }}>
         <p style={{
           fontFamily: "'Electrolize', sans-serif",
           color: "#34bfff",
@@ -785,9 +862,10 @@ function HeroSection() {
           letterSpacing: "0.25em",
           marginBottom: "1.25rem",
           opacity: 0.9,
+          wordBreak: "break-word",
         }}>FULL STACK DEVELOPER · MERN · JAVA · TYPESCRIPT</p>
 
-        <h1 style={{
+        <h1 className="hero-title" style={{
           fontFamily: "'Poppins', sans-serif",
           fontSize: "clamp(3.2rem, 7.5vw, 6.5rem)",
           fontWeight: 300,
@@ -823,7 +901,7 @@ function HeroSection() {
         </div>
 
         {/* Stats row */}
-        <div style={{
+        <div className="hero-stats-row" style={{
           display: "flex", gap: "3rem", marginTop: "4rem", flexWrap: "wrap",
           paddingTop: "2rem",
           borderTop: "1px solid rgba(52,191,255,0.15)",
@@ -902,7 +980,7 @@ function AboutSection() {
       borderTop: "1px solid rgba(52,191,255,0.1)",
       padding: "7rem 6vw",
     }}>
-      <div ref={ref} style={{ maxWidth: 1160, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "5rem", alignItems: "start" }}>
+      <div ref={ref} className="about-grid" style={{ maxWidth: 1160, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: "5rem", alignItems: "start" }}>
 
         {/* Left — personal stats */}
         <div className={`reveal-start${visible ? " is-visible" : ""}`}>
@@ -1056,9 +1134,9 @@ function ProjectsSection() {
         </div>
 
         {/* Stacked card carousel */}
-        <div style={{ display: "flex", gap: "4rem", alignItems: "center", flexWrap: "wrap" }}>
+        <div className="projects-wrapper" style={{ display: "flex", gap: "4rem", alignItems: "center", flexWrap: "wrap" }}>
           {/* Card stack */}
-          <div className={`reveal-start delay-1${visible ? " is-visible" : ""}`} style={{ position: "relative", width: 340, height: 520, flexShrink: 0 }}>
+          <div className={`reveal-start delay-1 project-stack-box${visible ? " is-visible" : ""}`} style={{ position: "relative", width: 340, height: 520, flexShrink: 0 }}>
             {PROJECTS.map((project, i) => {
               const offset = i - current
               const isActive = offset === 0
@@ -1386,9 +1464,9 @@ function AchievementsSection() {
         </div>
 
         {/* Interactive Dual Stage Layout */}
-        <div style={{
+        <div className="achievements-grid" style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
           gap: "1.75rem",
           alignItems: "stretch",
         }}>
