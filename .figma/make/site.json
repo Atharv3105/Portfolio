@@ -1,0 +1,10 @@
+{
+  "description": "Showcases a professional portfolio with interactive 3D elements to highlight skills and experience, enhancing personal branding for job seekers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
