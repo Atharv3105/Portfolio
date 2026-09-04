@@ -39,6 +39,15 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    title: "PeerPulse",
+    sub: "Fintech · Alternate Credit & P2P",
+    desc: "Next-generation alternate credit intelligence & RBI-compliant fractional P2P lending platform for MSMEs. Multi-dimensional underwriting (ACIE) with bank statement forensics & UPI graph cycle detection, paired with a 12-table 3NF SQL data warehouse and Gemini 2.5 AI risk copilot.",
+    stack: ["React", "Node.js", "Python", "FastAPI", "MongoDB", "MySQL", "Gemini AI"],
+    impact: "300–900 ACIE score · 12-table 3NF SQL warehouse · RBI NBFC-P2P compliant",
+    link: "https://github.com/Atharv3105/PeerPulse-P2P",
+    color: "#8b5cf6",
+  },
+  {
     title: "Intelligent Code Review",
     sub: "AI Platform",
     desc: "Microservices with Node.js API gateway + FastAPI workers. FAISS plagiarism detection over 500K+ submissions. Groq LLM integration for automated senior-level reviews.",
@@ -320,13 +329,12 @@ const TERMINAL_CODE = [
   "  return result.userId;",
   "}",
   "",
-  "// MySQL slot scheduling — zero conflicts",
-  "const slots = await db.query(",
-  "  `SELECT * FROM appointments",
-  "   WHERE doctor_id = ? AND date = ?",
-  "   FOR UPDATE`,",
-  "  [doctorId, date]",
-  ");",
+  "// PeerPulse ACIE alternate credit underwriting",
+  "const acieScore = calculateScore({",
+  "  cashFlow: 0.30, upiGraphCycles: 0.25,",
+  "  gstReconciliation: 0.20, aaTelemetry: 0.10,",
+  "});",
+  "const pool = await db.fractionalPool(loanId, 25000);",
 ]
 
 type Seg = { text: string; color: string }
@@ -894,7 +902,7 @@ function HeroSection() {
             { n: "450+", l: "GitHub Commits" },
             { n: "200+", l: "LeetCode Solved" },
             { n: "8.62", l: "CGPA" },
-            { n: "3", l: "Projects Shipped" },
+            { n: "4", l: "Projects Shipped" },
           ].map(s => (
             <div key={s.l}>
               <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2rem", fontWeight: 700, color: "#F5EFE6", lineHeight: 1 }}>{s.n}</div>
@@ -1188,7 +1196,7 @@ function ProjectsSection() {
                 </div>
                 {project.link && (
                   <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: "0.78rem", padding: "0.6rem 1.4rem" }}>
-                    Live Demo ↗
+                    {project.link.includes("github.com") ? "View on GitHub ↗" : "Live Demo ↗"}
                   </a>
                 )}
               </div>
@@ -1282,7 +1290,7 @@ function ProjectCardStacked({ project, active }: { project: Project; active: boo
       {project.link && (
         <div style={{ marginTop: "1rem" }}>
           <span style={{ fontFamily: "'Electrolize', sans-serif", fontSize: "0.65rem", color: "#34bfff", letterSpacing: "0.06em" }}>
-            LIVE ↗
+            {project.link.includes("github.com") ? "GITHUB ↗" : "LIVE ↗"}
           </span>
         </div>
       )}
