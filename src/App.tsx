@@ -39,14 +39,6 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
-    title: "Communaudle-Pulse",
-    sub: "Live Event Platform",
-    desc: "Scaled to 10,000+ concurrent attendees. AI-generated quizzes with instant grading. WebSocket state via Zustand delivering 60fps leaderboard animations every 3 seconds.",
-    stack: ["Next.js", "TypeScript", "Redis", "WebSocket", "Zustand"],
-    impact: "10,000+ concurrent users · 100% moderation reduction",
-    color: "#7c3aed",
-  },
-  {
     title: "Intelligent Code Review",
     sub: "AI Platform",
     desc: "Microservices with Node.js API gateway + FastAPI workers. FAISS plagiarism detection over 500K+ submissions. Groq LLM integration for automated senior-level reviews.",
@@ -62,14 +54,6 @@ const PROJECTS: Project[] = [
     stack: ["React Native", "Node.js", "FaceAPI.js", "TensorFlow.js", "PostgreSQL"],
     impact: "80% faster attendance · 128-D face embeddings",
     color: "#22c55e",
-  },
-  {
-    title: "Doctor Appointment",
-    sub: "MyERN Stack",
-    desc: "Automated medical scheduling for 300+ daily slots. Gemini AI navigation cut search-to-booking time by 20%. MySQL algorithm with zero double-booking conflicts.",
-    stack: ["MongoDB", "Express.js", "React", "Node.js", "MySQL", "Gemini AI"],
-    impact: "300+ daily slots · 100% conflict elimination",
-    color: "#FF923E",
   },
   {
     title: "Full-Stack Job Board",
@@ -910,7 +894,7 @@ function HeroSection() {
             { n: "450+", l: "GitHub Commits" },
             { n: "200+", l: "LeetCode Solved" },
             { n: "8.62", l: "CGPA" },
-            { n: "5", l: "Projects Shipped" },
+            { n: "3", l: "Projects Shipped" },
           ].map(s => (
             <div key={s.l}>
               <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2rem", fontWeight: 700, color: "#F5EFE6", lineHeight: 1 }}>{s.n}</div>
