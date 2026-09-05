@@ -23,7 +23,7 @@ const SKILL_BARS: SkillBar[] = [
 const SKILL_TAGS = [
   "JavaScript (ES6+)", "TypeScript", "Java", "Python", "C++", "SQL",
   "React.js", "Next.js", "Node.js", "Express.js", "FastAPI", "Socket.io",
-  "MongoDB", "MySQL", "Redis", "Docker", "Git", "Vite",
+  "PostgreSQL", "MongoDB", "MySQL", "Redis", "Docker", "Git", "Vite",
   "Groq API", "Gemini AI", "FAISS", "WebSockets", "REST APIs",
 ]
 
@@ -34,6 +34,7 @@ interface Project {
   stack: string[]
   impact: string
   link?: string
+  github?: string
   color: string
 }
 
@@ -45,7 +46,18 @@ const PROJECTS: Project[] = [
     stack: ["React", "Node.js", "Python", "FastAPI", "MongoDB", "MySQL", "Gemini AI"],
     impact: "300–900 ACIE score · 12-table 3NF SQL warehouse · RBI NBFC-P2P compliant",
     link: "https://github.com/Atharv3105/PeerPulse-P2P",
+    github: "https://github.com/Atharv3105/PeerPulse-P2P",
     color: "#8b5cf6",
+  },
+  {
+    title: "PropLedger",
+    sub: "Real Estate & SQL Analytics",
+    desc: "Enterprise SQL-centric property management and financial reporting engine. Powered by PostgreSQL 16 with window functions, recursive CTEs, and ACID FIFO payment transactions (usp_RecordPayment). Features an SSRS-equivalent 14-report suite with sub-second PDF/Excel generation.",
+    stack: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Docker", "Python"],
+    impact: "14 institutional reports · Sub-second execution · ACID FIFO allocation",
+    link: "https://react-app-m4gx.vercel.app/",
+    github: "https://github.com/Atharv3105/PropLedger",
+    color: "#00E5FF",
   },
   {
     title: "Intelligent Code Review",
@@ -122,6 +134,24 @@ const ACHIEVEMENTS: AchievementItem[] = [
     statusColor: "#FF3366",
     tagline: "National Engineering & Hiring Challenge",
     desc: "Participated in the National Level hiring Hackathon hosted by Adobe India, solving complex algorithmic challenges and building high-performance web components.",
+    highlights: [
+      "Nationwide Competitive Coding Benchmark",
+      "Algorithmic Data Optimization & High-throughput UI",
+      "Built under strict time-bounded hackathon constraints",
+    ],
+    techStack: ["Java", "Data Structures", "React", "REST APIs"],
+  },
+  {
+    id: "adobe-2026",
+    icon: "🎯",
+    year: "2026",
+    title: "Adobe University Hackathon",
+    event: "Adobe Systems India",
+    category: "Hiring Hackathon",
+    status: "National Contestant",
+    statusColor: "#FF3366",
+    tagline: "National Engineering & Hiring Challenge",
+    desc: "Participated in the National Level hiring Hackathon hosted by Adobe, solving complex algorithmic challenges and building high-performance web components.",
     highlights: [
       "Nationwide Competitive Coding Benchmark",
       "Algorithmic Data Optimization & High-throughput UI",
@@ -307,17 +337,15 @@ const TERMINAL_CODE = [
   "  return data;",
   "}",
   "",
-  "// React component with live leaderboard",
-  "const Leaderboard: React.FC = () => {",
-  "  const [scores, setScores] = useState<Score[]>([]);",
-  "",
-  "  useEffect(() => {",
-  "    socket.on('leaderboard:update', setScores);",
-  "    return () => void socket.off('leaderboard:update');",
-  "  }, []);",
-  "",
-  "  return <ScoreList data={scores} />;",
-  "};",
+  "// PropLedger PostgreSQL FIFO payment allocation",
+  "await db.query(`CALL usp_RecordPayment($1, $2, $3);`, [",
+  "  tenantId, paymentAmount, paymentDate,",
+  "]);",
+  "// Window functions & recursive lease CTE",
+  "const stats = await db.query(`",
+  "  SELECT property_id, SUM(balance) OVER (PARTITION BY zone)",
+  "  FROM active_leases WHERE dpd > 30",
+  "`);",
   "",
   "// 128-D face embedding matcher",
   "async function matchFace(embedding: Float32Array) {",
@@ -902,7 +930,7 @@ function HeroSection() {
             { n: "450+", l: "GitHub Commits" },
             { n: "200+", l: "LeetCode Solved" },
             { n: "8.62", l: "CGPA" },
-            { n: "4", l: "Projects Shipped" },
+            { n: "5", l: "Projects Shipped" },
           ].map(s => (
             <div key={s.l}>
               <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2rem", fontWeight: 700, color: "#F5EFE6", lineHeight: 1 }}>{s.n}</div>
@@ -1194,11 +1222,23 @@ function ProjectsSection() {
                     }}>{t}</span>
                   ))}
                 </div>
-                {project.link && (
-                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: "0.78rem", padding: "0.6rem 1.4rem" }}>
-                    {project.link.includes("github.com") ? "View on GitHub ↗" : "Live Demo ↗"}
-                  </a>
-                )}
+                <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", alignItems: "center" }}>
+                  {project.link && (
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{ fontSize: "0.78rem", padding: "0.6rem 1.4rem" }}>
+                      {project.link.includes("github.com") ? "View on GitHub ↗" : "Live Demo ↗"}
+                    </a>
+                  )}
+                  {project.github && project.github !== project.link && (
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-outline" style={{
+                      fontSize: "0.78rem",
+                      padding: "0.6rem 1.4rem",
+                      borderColor: "rgba(245,239,230,0.25)",
+                      color: "rgba(245,239,230,0.8)",
+                    }}>
+                      GitHub Repo ↗
+                    </a>
+                  )}
+                </div>
               </div>
             ))}
 
@@ -1287,11 +1327,23 @@ function ProjectCardStacked({ project, active }: { project: Project; active: boo
         ))}
       </div>
 
-      {project.link && (
-        <div style={{ marginTop: "1rem" }}>
-          <span style={{ fontFamily: "'Electrolize', sans-serif", fontSize: "0.65rem", color: "#34bfff", letterSpacing: "0.06em" }}>
-            {project.link.includes("github.com") ? "GITHUB ↗" : "LIVE ↗"}
-          </span>
+      {(project.link || project.github) && (
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.6rem", alignItems: "center" }}>
+          {project.link && !project.link.includes("github.com") && (
+            <span style={{ fontFamily: "'Electrolize', sans-serif", fontSize: "0.65rem", color: "#34bfff", letterSpacing: "0.06em" }}>
+              LIVE ↗
+            </span>
+          )}
+          {(project.github || (project.link && project.link.includes("github.com"))) && (
+            <span style={{
+              fontFamily: "'Electrolize', sans-serif",
+              fontSize: "0.65rem",
+              color: project.link && !project.link.includes("github.com") ? "rgba(245,239,230,0.6)" : "#34bfff",
+              letterSpacing: "0.06em",
+            }}>
+              GITHUB ↗
+            </span>
+          )}
         </div>
       )}
     </div>

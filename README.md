@@ -84,6 +84,7 @@ In the project directory, you can run:
 - **Google Solutions Challenge 2026** — *ReliefSync NGO Resource Allocation Prototype*
 - **VIT Code Apex 2026** — *Semi-Finalist (Commudle-Pulse Live Event Platform)*
 - **Adobe India Hackathon 2025** — *National Hiring Challenge Contestant*
+- **Adobe University Hackathon 2026** — *National Hiring Challenge Contestant*
 
 ---
 
