@@ -45,7 +45,7 @@ const PROJECTS: Project[] = [
     desc: "Next-generation alternate credit intelligence & RBI-compliant fractional P2P lending platform for MSMEs. Multi-dimensional underwriting (ACIE) with bank statement forensics & UPI graph cycle detection, paired with a 12-table 3NF SQL data warehouse and Gemini 2.5 AI risk copilot.",
     stack: ["React", "Node.js", "Python", "FastAPI", "MongoDB", "MySQL", "Gemini AI"],
     impact: "300–900 ACIE score · 12-table 3NF SQL warehouse · RBI NBFC-P2P compliant",
-    link: "https://github.com/Atharv3105/PeerPulse-P2P",
+    link: "https://peer-pulse-p2-p.vercel.app/",
     github: "https://github.com/Atharv3105/PeerPulse-P2P",
     color: "#8b5cf6",
   },
